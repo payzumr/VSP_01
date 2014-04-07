@@ -67,8 +67,7 @@ public class Client {
 
 				break;
 			case "anlegen":
-				bank.neu(args[3]);
-				System.out.println("Client: bank anglegt Nummer: " + args[3]);
+				bank.neu(args[3]);				
 				break;
 			case "anlegen500":
 				for(Integer i = 0; i< 500 ; i++){
@@ -77,13 +76,11 @@ public class Client {
 				break;
 			case "loeschen":
 				bank.loeschen(args[3]);
-				System.out.println("Client: bank gelöscht Nummer: " + args[3]);
 				break;
 			case "einzahlen":
 				try {
 					double betrag = Double.parseDouble(args[4]);
 					bank.hole(args[3]).einzahlen(betrag);
-					System.out.println("Es wurden: " + args[4] + " eingezahlt");
 				} catch (NumberFormatException e) {
 					System.out
 							.println("Bitte geben sie einen gueltigen Zahlenbetrag ein");
@@ -93,7 +90,6 @@ public class Client {
 				try {
 					double betrag = Double.parseDouble(args[4]);
 					bank.hole(args[3]).auszahlen(betrag);
-					System.out.println("Es wurden: " + args[4] + " ausgezahlt");
 				} catch (NumberFormatException e) {
 					System.out
 							.println("Bitte geben sie einen gueltigen Zahlenbetrag ein");
@@ -112,7 +108,7 @@ public class Client {
 				}
 				break;
 			default:
-				System.out.println("hau ab!");
+				System.out.println("Falsche Eingabe");
 			}
 
 			// demo(bank);
