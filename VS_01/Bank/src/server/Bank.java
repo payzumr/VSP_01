@@ -62,7 +62,11 @@ public class Bank {
 			}
 			System.out.println("BankServer Exiting ...");
 		}
+		
 
+	}
+	public static ORB getORB(){
+		return orb;
 	}
 
 }

@@ -16,7 +16,6 @@ import bank.BankPackage.EKontoNotFound;
 
 public class BankImpl extends BankPOA {
 
-
 	private List<Konto> Kntliste = new ArrayList<Konto>();
 	private List<Monitor> monitors = new ArrayList<Monitor>();
 	private POA poa;
@@ -106,11 +105,10 @@ public class BankImpl extends BankPOA {
 
 	@Override
 	public synchronized void monitorEntfernen(Monitor theMonitor) {
-		System.out.println("mon exit!!!!!!!!!!!!!");
 		if (!monitors.isEmpty() && monitors.contains(theMonitor)) {
 			monitors.remove(theMonitor);
 		}
-		
+
 		theMonitor.exit();
 	}
 
@@ -122,30 +120,29 @@ public class BankImpl extends BankPOA {
 			}
 		}
 		waiting();
-		System.out.println("Gute Nacht!");
-		Bank.orb.shutdown(false);
 	}
 
 	public void aktualisieren(String message) {
-//		if (!monitors.isEmpty()) {
-//			for (Monitor e : monitors) {
-//				e.meldung(message);
-//			}
-//		}
 		MonitorThread mtmp = new MonitorThread(message, monitors);
 		mtmp.start();
 	}
 
 	static void waiting() {
-		Thread th = new Thread();
-		th.start();
 		try {
-			System.out.println("schlafe!!");
-			th.sleep(1000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+			new Thread() {
+				public void run() {
+					try {
+						Thread.sleep(500);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					Bank.getORB().shutdown(true);
+					System.exit(0);
+				}
+			}.start();
+		} catch (Exception e) {
+			System.out.println("Fehler bei exit-Thread");
 		}
-		th.stop();
 	}
 
 	private boolean kontoVorhanden(String kntnr) {

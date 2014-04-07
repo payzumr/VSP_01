@@ -31,7 +31,6 @@ public class MonitorImpl extends MonitorPOA {
 			new Thread() {
 
 				public void run() {
-					System.out.println("System.exit: Monitor.exit(0)");
 					System.exit(0);
 				}
 			}.start();
